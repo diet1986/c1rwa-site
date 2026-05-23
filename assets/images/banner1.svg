@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f2f2f2"/>
+      <stop offset="1" stop-color="#cfcfcf"/>
+    </linearGradient>
+    <linearGradient id="gate" x1="0" x2="1">
+      <stop offset="0" stop-color="#111111"/>
+      <stop offset="1" stop-color="#444444"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="400" fill="url(#sky)"/>
+  <circle cx="1000" cy="82" r="58" fill="#ffffff" opacity=".85"/>
+  <path d="M0 315 C190 265 365 300 520 260 C730 205 930 255 1200 205 L1200 400 L0 400 Z" fill="#d8d8d8"/>
+  <path d="M0 345 C250 300 430 355 630 312 C850 265 995 310 1200 270 L1200 400 L0 400 Z" fill="#9c9c9c"/>
+  <rect x="375" y="142" width="450" height="160" rx="10" fill="url(#gate)"/>
+  <rect x="412" y="177" width="376" height="95" rx="6" fill="#fffdf8"/>
+  <text x="600" y="218" fill="#111111" font-family="Georgia, serif" font-size="46" font-weight="800" text-anchor="middle">C1 RWA</text>
+  <text x="600" y="253" fill="#555555" font-family="Arial, Helvetica, sans-serif" font-size="24" text-anchor="middle">Residents Welfare Association</text>
+  <rect x="334" y="128" width="36" height="190" rx="8" fill="#111111"/>
+  <rect x="830" y="128" width="36" height="190" rx="8" fill="#111111"/>
+  <path d="M145 330 L180 245 L215 330 Z" fill="#777777"/>
+  <path d="M980 330 L1017 232 L1054 330 Z" fill="#777777"/>
+  <rect x="0" y="352" width="1200" height="48" fill="#111111"/>
+</svg>

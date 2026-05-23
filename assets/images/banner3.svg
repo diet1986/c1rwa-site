@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400">
+  <defs>
+    <linearGradient id="evening" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#111111"/>
+      <stop offset=".55" stop-color="#4f4f4f"/>
+      <stop offset="1" stop-color="#969696"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="400" fill="url(#evening)"/>
+  <circle cx="1012" cy="92" r="46" fill="#ffffff" opacity=".9"/>
+  <path d="M0 255 C180 220 330 242 510 210 C720 172 895 195 1200 150 L1200 400 L0 400 Z" fill="#353535" opacity=".82"/>
+  <path d="M0 330 L1200 250 L1200 400 L0 400 Z" fill="#111111"/>
+  <g fill="#fffdf8">
+    <rect x="104" y="168" width="128" height="105" rx="8" opacity=".95"/>
+    <rect x="268" y="130" width="150" height="142" rx="8" opacity=".95"/>
+    <rect x="770" y="150" width="160" height="125" rx="8" opacity=".95"/>
+    <rect x="972" y="184" width="124" height="92" rx="8" opacity=".95"/>
+  </g>
+  <g fill="#d7d7d7">
+    <rect x="130" y="194" width="24" height="22" rx="4"/>
+    <rect x="178" y="194" width="24" height="22" rx="4"/>
+    <rect x="302" y="160" width="28" height="24" rx="4"/>
+    <rect x="356" y="160" width="28" height="24" rx="4"/>
+    <rect x="805" y="180" width="30" height="24" rx="4"/>
+    <rect x="864" y="180" width="30" height="24" rx="4"/>
+    <rect x="1002" y="210" width="24" height="22" rx="4"/>
+    <rect x="1050" y="210" width="24" height="22" rx="4"/>
+  </g>
+  <path d="M424 334 C505 290 596 282 684 334" stroke="#d7d7d7" stroke-width="12" fill="none" stroke-linecap="round"/>
+  <text x="600" y="108" fill="#ffffff" font-family="Georgia, serif" font-size="38" font-weight="800" text-anchor="middle">A Safer, Brighter C1</text>
+  <text x="600" y="148" fill="#eeeeee" font-family="Arial, Helvetica, sans-serif" font-size="23" text-anchor="middle">Together for security, events, upkeep and care</text>
+</svg>
