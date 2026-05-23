@@ -1,6 +1,7 @@
 
 const announcements = [
-    { title: "Water Maintenance", description: "Sunday 10 AM-2 PM" },
-    { title: "Latest Meeting Minutes", description: "View the latest meeting minutes.", file: "assets/docs/rwa-c1-minutes-of-meeting.pdf" },
-    { title: "Security Update", description: "<span class='tick'>✔</span> CCTV camera installation is currently in progress at all key locations across C-1 Block.<br><span class='tick'>✔</span> Security Supervisor is available 24×7 — Contact: +91-12345678903<br><span class='tick'>✔</span> Vehicle stickers are available at the RWA office. Residents who have not yet collected their stickers are requested to do so at the earliest." }
+    { title: "Water Maintenance", description: "Sunday 10 AM – 2 PM: Water supply will be temporarily suspended for maintenance. Residents are advised to store water in advance." },
+    { title: "Latest Meeting Minutes", description: "The minutes of the latest RWA general body meeting are now available. Click below to preview or download.", file: "assets/docs/rwa-c1-minutes-of-meeting.pdf" },
+    { title: "Security Update", description: "<ul class='tick-list'><li><span class='tick'>✔</span> CCTV camera installation is in progress at all key locations across C-1 Block.</li><li><span class='tick'>✔</span> Security Supervisor available 24×7 — Contact: +91-12345678903</li><li><span class='tick'>✔</span> Vehicle stickers available at the RWA office. Uncollected stickers must be picked up at the earliest.</li></ul>" },
+    { title: "RWA Rules & Responsibilities", description: "<ul class='tick-list'><li><span class='tick-dark'>✔</span> Managing security guards and regulating entry/exit protocols for residents and visitors.</li><li><span class='tick-dark'>✔</span> Installing and maintaining CCTV surveillance across all key locations.</li><li><span class='tick-dark'>✔</span> Regulating domestic staff and delivery personnel entry into the block.</li><li><span class='tick-dark'>✔</span> Collecting and managing maintenance charges from residents transparently.</li><li><span class='tick-dark'>✔</span> Managing the RWA fund responsibly for the benefit of all residents.</li></ul>" }
 ];

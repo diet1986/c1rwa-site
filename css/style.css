@@ -220,9 +220,35 @@ section h2::after {
     flex: 1;
 }
 
+#announcements-section .cards {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.tick-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.tick-list li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.tick-list li:last-child {
+    margin-bottom: 0;
+}
+
 .tick {
-    color: #22a84a;
+    color: #5b21b6;
     font-weight: 700;
+    margin-right: 4px;
+}
+
+.tick-dark {
+    color: #5b21b6;
+    font-weight: 700;
+    margin-right: 4px;
 }
 
 .member-card {
@@ -585,6 +611,10 @@ section h2::after {
 
     .cards {
         grid-template-columns: 1fr
+    }
+
+    #announcements-section .cards {
+        grid-template-columns: 1fr;
     }
 
     #members {
