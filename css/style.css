@@ -216,8 +216,13 @@ section h2::after {
 .card p {
     margin: 0;
     color: #64605a;
-    line-height: 1.55;
+    line-height: 1.8;
     flex: 1;
+}
+
+.tick {
+    color: #22a84a;
+    font-weight: 700;
 }
 
 .member-card {
