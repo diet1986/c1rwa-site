@@ -1,8 +1,8 @@
 
 let a = document.getElementById("announcements");
-announcements.forEach((x, index) => {
+announcements.forEach((x) => {
     let actions = x.file ? `<div class="card-actions"><button type="button" class="preview-pdf" data-file="${x.file}">Preview</button><a href="${x.file}" target="_blank" rel="noopener">Open PDF</a></div>` : "";
-    a.innerHTML += `<div class='card'><h3>${x.title}</h3><p>${x.description}</p>${actions}</div>`;
+    a.innerHTML += `<div class='card'><div class="card-body"><h3>${x.title}</h3><p>${x.description}</p>${actions}</div></div>`;
 });
 
 let m = document.getElementById("members");
