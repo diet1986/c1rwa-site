@@ -131,3 +131,83 @@ if (galleryTrack && gallerySlides.length) {
 document.addEventListener("keydown", event => {
     if (event.key === "Escape" && pdfModal && pdfModal.classList.contains("open")) closePdf();
 });
+
+// ── Complaint Modal ──────────────────────────────────────────
+const COMPLAINT_API = 'https://script.google.com/macros/s/AKfycbxDDgUtVZPlCKL7h-cBHQwRAZsp3jMspTz7Duj76Zgz044gZIMWIeO6iQ3mJwJW5CrGWg/exec';
+
+const complaintModal      = document.getElementById('complaintModal');
+const openComplaintBtn    = document.getElementById('openComplaintModal');
+const closeComplaintBtn   = document.getElementById('closeComplaintModal');
+const complaintForm       = document.getElementById('complaintForm');
+const complaintSuccess    = document.getElementById('complaintSuccess');
+const complaintNumberDisp = document.getElementById('complaintNumberDisplay');
+const complaintSubmitBtn  = document.getElementById('complaintSubmitBtn');
+const complaintDoneBtn    = document.getElementById('complaintDoneBtn');
+
+function openComplaintModal() {
+    complaintModal.classList.add('open');
+    complaintModal.setAttribute('aria-hidden', 'false');
+    complaintForm.style.display = '';
+    complaintSuccess.style.display = 'none';
+    complaintForm.reset();
+    complaintSubmitBtn.disabled = false;
+    complaintSubmitBtn.textContent = 'Submit Complaint';
+}
+
+function closeComplaintModal() {
+    complaintModal.classList.remove('open');
+    complaintModal.setAttribute('aria-hidden', 'true');
+}
+
+if (openComplaintBtn) openComplaintBtn.addEventListener('click', e => { e.preventDefault(); openComplaintModal(); });
+if (closeComplaintBtn) closeComplaintBtn.addEventListener('click', closeComplaintModal);
+if (complaintDoneBtn) complaintDoneBtn.addEventListener('click', closeComplaintModal);
+
+if (complaintModal) {
+    complaintModal.addEventListener('click', e => {
+        if (e.target === complaintModal) closeComplaintModal();
+    });
+}
+
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && complaintModal && complaintModal.classList.contains('open')) closeComplaintModal();
+});
+
+if (complaintForm) {
+    complaintForm.addEventListener('submit', async e => {
+        e.preventDefault();
+        const name      = document.getElementById('cName').value.trim();
+        const houseNo   = document.getElementById('cHouse').value.trim();
+        const complaint = document.getElementById('cComplaint').value.trim();
+
+        if (!name || !houseNo || !complaint) {
+            alert('Please fill in all required fields.');
+            return;
+        }
+
+        complaintSubmitBtn.disabled = true;
+        complaintSubmitBtn.textContent = 'Submitting...';
+
+        try {
+            const response = await fetch(COMPLAINT_API, {
+                method: 'POST',
+                body: JSON.stringify({ name, houseNo, complaint })
+            });
+            const data = await response.json();
+
+            if (data.success) {
+                complaintForm.style.display = 'none';
+                complaintNumberDisp.textContent = data.complaintNumber;
+                complaintSuccess.style.display = '';
+            } else {
+                alert('Something went wrong. Please try again or contact us directly.');
+                complaintSubmitBtn.disabled = false;
+                complaintSubmitBtn.textContent = 'Submit Complaint';
+            }
+        } catch (err) {
+            alert('Network error. Please check your connection and try again.');
+            complaintSubmitBtn.disabled = false;
+            complaintSubmitBtn.textContent = 'Submit Complaint';
+        }
+    });
+}

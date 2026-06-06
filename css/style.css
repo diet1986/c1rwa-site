@@ -110,6 +110,19 @@ body {
     color: #d9ffff
 }
 
+.nav-complaint {
+    background: var(--teal) !important;
+    color: #ffffff !important;
+    border-radius: 20px;
+    padding: 6px 14px !important;
+    text-shadow: none !important;
+}
+
+.nav-complaint:hover {
+    background: #13918e !important;
+    color: #ffffff !important;
+}
+
 .hero::after {
     content: "";
     position: absolute;
@@ -710,5 +723,216 @@ section h2::after {
 
     section {
         padding: 48px 20px 4px;
+    }
+}
+
+/* ─── COMPLAINT BUTTON ────────────────────────────────────── */
+.complaint-btn {
+    display: inline-block;
+    margin-top: 28px;
+    padding: 14px 32px;
+    background: var(--teal);
+    color: #ffffff;
+    border: none;
+    border-radius: 30px;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.complaint-btn:hover {
+    background: #13918e;
+    transform: translateY(-2px);
+}
+
+/* ─── COMPLAINT MODAL ─────────────────────────────────────── */
+.complaint-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.82);
+}
+
+.complaint-modal.open {
+    display: flex;
+}
+
+.complaint-panel {
+    width: min(520px, 100%);
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+}
+
+.complaint-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 22px;
+    background: #050505;
+    border-bottom: 3px solid var(--teal);
+}
+
+.complaint-toolbar h3 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.complaint-close {
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    color: #ffffff;
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.complaint-close:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+/* ─── COMPLAINT FORM ──────────────────────────────────────── */
+.complaint-form {
+    padding: 24px 22px 28px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    color: #171717;
+    font-size: 0.92rem;
+    font-weight: 700;
+}
+
+.req {
+    color: #e53935;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid #ddd7cd;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: #171717;
+    background: #fafafa;
+    transition: border-color 0.2s;
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--teal);
+    background: #ffffff;
+}
+
+.form-note {
+    margin: 0 0 16px;
+    font-size: 0.8rem;
+    color: #9b9286;
+}
+
+.form-submit {
+    width: 100%;
+    padding: 12px;
+    background: #171717;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.form-submit:hover:not(:disabled) {
+    background: #333333;
+}
+
+.form-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ─── SUCCESS SCREEN ──────────────────────────────────────── */
+.complaint-success {
+    padding: 36px 22px 32px;
+    text-align: center;
+}
+
+.success-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--teal);
+    color: #ffffff;
+    font-size: 2rem;
+    line-height: 64px;
+    margin: 0 auto 16px;
+}
+
+.complaint-success h4 {
+    margin: 0 0 12px;
+    color: #171717;
+    font-size: 1.2rem;
+}
+
+.complaint-success p {
+    margin: 0 0 8px;
+    color: #64605a;
+}
+
+.complaint-number {
+    display: inline-block;
+    margin: 10px auto 16px;
+    padding: 12px 28px;
+    background: #050505;
+    color: var(--teal);
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    border-radius: 6px;
+}
+
+.success-note {
+    font-size: 0.88rem;
+    color: #9b9286;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+@media (max-width: 640px) {
+    .complaint-panel {
+        border-radius: 8px;
+    }
+
+    .complaint-form {
+        padding: 18px 16px 22px;
+    }
+
+    .complaint-success {
+        padding: 24px 16px 22px;
     }
 }

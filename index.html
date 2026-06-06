@@ -23,6 +23,7 @@
             <a href="#members-section">Members</a>
             <a href="#gallery-section">Gallery</a>
             <a href="#contact-section">Contact Us</a>
+            <a href="#" class="nav-complaint" id="openComplaintModal">&#128203; Submit Complaint</a>
         </nav>
     </header>
 
@@ -83,7 +84,46 @@
         <p>Phone: +91-9818789777</p>
         <p>Office: 363, C-1 Block, Near Football Ground, Gurugram 122017 (Hr.)</p>
         <p>Regd. No: HR/018/2013/00579</p>
+        <button class="complaint-btn" id="openComplaintModal" type="button" style="display:none">&#128203; Submit a Complaint</button>
     </section>
+
+    <!-- Complaint Modal -->
+    <div class="complaint-modal" id="complaintModal" aria-hidden="true" role="dialog" aria-label="Submit a complaint">
+        <div class="complaint-panel">
+            <div class="complaint-toolbar">
+                <h3>Submit a Complaint</h3>
+                <button class="complaint-close" id="closeComplaintModal" type="button" aria-label="Close">&times;</button>
+            </div>
+
+            <!-- Form -->
+            <form class="complaint-form" id="complaintForm" novalidate>
+                <div class="form-group">
+                    <label for="cName">Resident Name <span class="req">*</span></label>
+                    <input type="text" id="cName" name="name" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="cHouse">House / Flat Number <span class="req">*</span></label>
+                    <input type="text" id="cHouse" name="houseNo" placeholder="e.g. C1-123" required>
+                </div>
+                <div class="form-group">
+                    <label for="cComplaint">Complaint Details <span class="req">*</span></label>
+                    <textarea id="cComplaint" name="complaint" rows="4" placeholder="Describe your complaint..." required></textarea>
+                </div>
+                <p class="form-note">* All fields are required</p>
+                <button type="submit" class="form-submit" id="complaintSubmitBtn">Submit Complaint</button>
+            </form>
+
+            <!-- Success screen -->
+            <div class="complaint-success" id="complaintSuccess" style="display:none;">
+                <div class="success-icon">&#10003;</div>
+                <h4>Complaint Registered Successfully!</h4>
+                <p>Your Complaint Number is:</p>
+                <div class="complaint-number" id="complaintNumberDisplay"></div>
+                <p class="success-note">Please save this number to track your complaint.<br>Our team will contact you within 48 hours.</p>
+                <button class="form-submit" id="complaintDoneBtn" type="button">Done</button>
+            </div>
+        </div>
+    </div>
 
     <script src="js/announcements.js"></script>
     <script src="js/members.js"></script>
