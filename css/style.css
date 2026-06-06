@@ -756,8 +756,9 @@ section h2::after {
     display: none;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 16px;
     background: rgba(0, 0, 0, 0.82);
+    overflow-y: auto;
 }
 
 .complaint-modal.open {
@@ -766,10 +767,14 @@ section h2::after {
 
 .complaint-panel {
     width: min(520px, 100%);
+    max-height: 92vh;
+    display: flex;
+    flex-direction: column;
     background: #ffffff;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+    margin: auto;
 }
 
 .complaint-toolbar {
@@ -808,6 +813,8 @@ section h2::after {
 /* ─── COMPLAINT FORM ──────────────────────────────────────── */
 .complaint-form {
     padding: 24px 22px 28px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .form-group {
@@ -924,15 +931,35 @@ section h2::after {
 }
 
 @media (max-width: 640px) {
+    .complaint-modal {
+        padding: 10px;
+        align-items: flex-start;
+    }
+
     .complaint-panel {
         border-radius: 8px;
+        max-height: 95vh;
+        width: 100%;
+        margin: auto;
     }
 
     .complaint-form {
-        padding: 18px 16px 22px;
+        padding: 16px 14px 20px;
     }
 
     .complaint-success {
-        padding: 24px 16px 22px;
+        padding: 24px 14px 20px;
+    }
+
+    .complaint-number {
+        font-size: 1.1rem;
+        padding: 10px 16px;
+        letter-spacing: 0.08em;
+        word-break: break-all;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        font-size: 1rem; /* prevents iOS zoom on focus */
     }
 }
