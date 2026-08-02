@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel — C1 RWA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+
+<body>
+
+    <header class="admin-header">
+        <a class="admin-brand" href="index.html">
+            <img src="assets/images/logo.png" alt="C1 RWA" class="admin-brand-logo">
+            <span class="admin-brand-name">C1 RWA &mdash; Admin</span>
+        </a>
+        <div class="admin-header-right" id="headerRight" style="display:none;">
+            <span class="admin-email-badge" id="adminEmailDisplay"></span>
+            <button class="admin-logout-btn" id="logoutBtn" type="button">Sign Out</button>
+        </div>
+    </header>
+
+    <!-- ── Login ─────────────────────────────────────────────── -->
+    <div id="loginSection">
+        <div class="login-section">
+            <div class="login-card">
+                <div class="login-card-header">
+                    <h2>&#128274; Admin Sign In</h2>
+                </div>
+                <div class="login-card-body">
+                    <p class="admin-note">
+                        Admin account must be created in
+                        <strong>Firebase Console → Authentication → Users</strong>.<br>
+                        Default admin email: <strong>c1rwapv@gmail.com</strong>
+                    </p>
+                    <form id="loginForm" novalidate>
+                        <div class="form-group">
+                            <label for="adminEmail">Email</label>
+                            <input type="email" id="adminEmail" name="email"
+                                   placeholder="admin@example.com"
+                                   autocomplete="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="adminPassword">Password</label>
+                            <input type="password" id="adminPassword" name="password"
+                                   placeholder="••••••••"
+                                   autocomplete="current-password" required>
+                        </div>
+                        <span class="login-error" id="loginError" role="alert"></span>
+                        <button type="submit" class="login-btn" id="loginBtn">Sign In</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Dashboard ─────────────────────────────────────────── -->
+    <div id="dashboardSection" style="display:none;">
+        <div class="admin-page">
+            <div class="dashboard-header">
+                <h1>Complaints Dashboard</h1>
+                <button class="refresh-btn" id="refreshBtn" type="button">&#8635; Refresh</button>
+            </div>
+
+            <div class="table-card">
+                <div class="table-wrapper">
+                    <table class="complaints-table" aria-label="Complaints list">
+                        <thead>
+                            <tr>
+                                <th class="col-number">Complaint No.</th>
+                                <th class="col-name">Name</th>
+                                <th class="col-house">House No.</th>
+                                <th class="col-complaint">Complaint</th>
+                                <th class="col-status">Status</th>
+                                <th class="col-date">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="complaintsTableBody">
+                            <tr id="loadingRow" class="loading-row">
+                                <td colspan="6">Loading complaints…</td>
+                            </tr>
+                            <tr id="noDataRow" class="no-data-row" style="display:none;">
+                                <td colspan="6">No complaints found.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="admin-toast" id="adminToast" role="status" aria-live="polite"></div>
+
+    <!-- Firebase CDN (compat v10) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/admin.js"></script>
+    <script>
+        // Refresh button wires to loadComplaints() defined in admin.js
+        document.getElementById('refreshBtn').addEventListener('click', () => {
+            if (typeof loadComplaints === 'function') loadComplaints();
+        });
+    </script>
+
+</body>
+
+</html>

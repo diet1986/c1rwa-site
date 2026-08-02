@@ -963,3 +963,186 @@ section h2::after {
         font-size: 1rem; /* prevents iOS zoom on focus */
     }
 }
+
+/* ─── TRACK COMPLAINT SECTION ────────────────────────────── */
+.track-section {
+    background: #f3f0ea;
+    max-width: none;
+    margin: 0;
+    padding: 64px 20px 60px;
+}
+
+.track-section h2 {
+    color: #171717;
+}
+
+.track-section h2::after {
+    background: #9b9286;
+}
+
+.track-intro {
+    text-align: center;
+    color: #64605a;
+    margin: -10px 0 28px;
+    font-size: 1rem;
+}
+
+.track-form {
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+.track-input-row {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+}
+
+.track-input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1.5px solid #171717;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    color: #171717;
+    background: #ffffff;
+    transition: border-color .2s;
+}
+
+.track-input:focus {
+    outline: none;
+    border-color: var(--teal);
+}
+
+.track-btn {
+    padding: 12px 24px;
+    background: #171717;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: .95rem;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background .2s;
+}
+
+.track-btn:hover {
+    background: #333333;
+}
+
+.track-result {
+    max-width: 560px;
+    margin: 20px auto 0;
+    min-height: 24px;
+}
+
+.track-loading {
+    text-align: center;
+    color: #64605a;
+    margin: 0;
+}
+
+.track-error {
+    text-align: center;
+    color: #b91c1c;
+    margin: 0;
+    font-size: .95rem;
+}
+
+/* Track result card */
+.track-card {
+    background: #ffffff;
+    border: 1.5px solid #171717;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 12px 30px rgba(44, 36, 25, .1);
+}
+
+.track-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 20px;
+    background: #050505;
+    flex-wrap: wrap;
+}
+
+.track-number {
+    font-size: .9rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+    color: var(--teal);
+}
+
+.track-status {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+
+.track-status--registered   { background: #e5e7eb; color: #374151; }
+.track-status--under-review { background: #fef3c7; color: #92400e; }
+.track-status--in-progress  { background: #dbeafe; color: #1e40af; }
+.track-status--resolved     { background: #ccfbf1; color: #065f46; }
+.track-status--closed       { background: #f3f4f6; color: #6b7280; }
+
+.track-card-body {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 20px;
+}
+
+.track-field {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.track-field--full {
+    grid-column: 1 / -1;
+}
+
+.track-label {
+    font-size: .75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: #9b9286;
+}
+
+.track-field span:last-child {
+    font-size: .95rem;
+    color: #171717;
+    line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+    .track-section {
+        padding: 40px 16px 44px;
+    }
+
+    .track-input-row {
+        flex-direction: column;
+    }
+
+    .track-btn {
+        width: 100%;
+    }
+
+    .track-card-body {
+        grid-template-columns: 1fr;
+    }
+
+    .track-field--full {
+        grid-column: 1;
+    }
+}

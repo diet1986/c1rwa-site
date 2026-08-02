@@ -22,6 +22,7 @@
             <a href="#announcements-section">Important Announcements</a>
             <a href="#members-section">Members</a>
             <a href="#gallery-section">Gallery</a>
+            <a href="#track-section">Track Complaint</a>
             <a href="#contact-section">Contact Us</a>
             <a href="#" class="nav-complaint" id="openComplaintModal">&#128203; Submit Complaint</a>
         </nav>
@@ -78,6 +79,27 @@
         </div>
     </div>
 
+    <!-- Track Complaint Section -->
+    <section id="track-section" class="track-section">
+        <h2>Track Your Complaint</h2>
+        <p class="track-intro">Enter your complaint number to check the current status.</p>
+        <form class="track-form" id="trackForm" novalidate>
+            <div class="track-input-row">
+                <input
+                    type="text"
+                    id="trackInput"
+                    class="track-input"
+                    placeholder="e.g. C1-RWA-2026-0001"
+                    aria-label="Complaint number"
+                    autocomplete="off"
+                    spellcheck="false"
+                >
+                <button type="submit" class="track-btn">Check Status</button>
+            </div>
+        </form>
+        <div id="trackResult" class="track-result" aria-live="polite"></div>
+    </section>
+
     <section class="contact" id="contact-section">
         <h2>Contact Us</h2>
         <p>Email: rwac1block@gmail.com</p>
@@ -128,6 +150,11 @@
     <script src="js/announcements.js"></script>
     <script src="js/members.js"></script>
     <script src="js/gallery-images.js"></script>
+    <!-- Firebase CDN (compat v10) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
     <script src="js/main.js"></script>
 
 </body>
