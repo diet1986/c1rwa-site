@@ -277,16 +277,19 @@ if (trackForm) {
                   })
                 : '—';
 
-            const resolvedDate = data.resolvedAt
-                ? new Date(data.resolvedAt.toMillis()).toLocaleDateString('en-IN', {
+            // resolvedAt may be null for older records — fall back to updatedAt if status is resolved/closed
+            const isResolved = data.status === 'Resolved' || data.status === 'Closed';
+            const resolvedTimestamp = data.resolvedAt || (isResolved ? data.updatedAt : null);
+            const resolvedDate = resolvedTimestamp
+                ? new Date(resolvedTimestamp.toMillis()).toLocaleDateString('en-IN', {
                       day: '2-digit', month: 'long', year: 'numeric'
                   })
                 : null;
 
             const statusClass = slugifyTrack(data.status);
 
-            const resolvedRow = resolvedDate
-                ? `<div class="track-field track-field--resolved"><span class="track-label">Resolved On</span><span class="track-resolved-date">${resolvedDate}</span></div>`
+            const resolvedRow = (isResolved && resolvedDate)
+                ? `<div class="track-field track-field--resolved"><span class="track-label">✔ Resolved On</span><span class="track-resolved-date">${resolvedDate}</span></div>`
                 : '';
 
             trackResult.innerHTML = `
