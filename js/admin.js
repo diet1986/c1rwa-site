@@ -112,6 +112,18 @@ function renderRow(docId, data) {
           })
         : '—';
 
+    const resolvedDate = data.resolvedAt
+        ? new Date(data.resolvedAt.toMillis()).toLocaleDateString('en-IN', {
+              day: '2-digit', month: 'short', year: 'numeric'
+          })
+        : '—';
+
+    const updatedDate = data.updatedAt
+        ? new Date(data.updatedAt.toMillis()).toLocaleDateString('en-IN', {
+              day: '2-digit', month: 'short', year: 'numeric'
+          })
+        : '—';
+
     const statusOptions = STATUS_OPTIONS.map(s =>
         `<option value="${s}"${data.status === s ? ' selected' : ''}>${s}</option>`
     ).join('');
@@ -127,6 +139,8 @@ function renderRow(docId, data) {
             </select>
         </td>
         <td class="col-date">${date}</td>
+        <td class="col-updated">${updatedDate}</td>
+        <td class="col-resolved">${resolvedDate}</td>
     `;
 
     tr.querySelector('.status-select').addEventListener('change', async function () {
@@ -135,11 +149,28 @@ function renderRow(docId, data) {
         this.disabled   = true;
 
         try {
-            await db.collection('complaints').doc(id).update({
+            const updateData = {
                 status:    newStatus,
                 updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-            });
+            };
+            // Set resolvedAt when marked Resolved or Closed, clear it otherwise
+            if (newStatus === 'Resolved' || newStatus === 'Closed') {
+                updateData.resolvedAt = firebase.firestore.FieldValue.serverTimestamp();
+            } else {
+                updateData.resolvedAt = null;
+            }
+
+            await db.collection('complaints').doc(id).update(updateData);
             this.className = `status-select status-${slugify(newStatus)}`;
+
+            // Update the resolved date cell in the same row
+            const resolvedCell = this.closest('tr').querySelector('.col-resolved');
+            if (resolvedCell) {
+                resolvedCell.textContent = (newStatus === 'Resolved' || newStatus === 'Closed')
+                    ? new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })
+                    : '—';
+            }
+
             showToast(`Status updated to "${newStatus}"`, 'success');
         } catch (err) {
             showToast('Update failed: ' + err.message, 'error');

@@ -271,7 +271,23 @@ if (trackForm) {
                   })
                 : '—';
 
+            const updatedDate = data.updatedAt
+                ? new Date(data.updatedAt.toMillis()).toLocaleDateString('en-IN', {
+                      day: '2-digit', month: 'long', year: 'numeric'
+                  })
+                : '—';
+
+            const resolvedDate = data.resolvedAt
+                ? new Date(data.resolvedAt.toMillis()).toLocaleDateString('en-IN', {
+                      day: '2-digit', month: 'long', year: 'numeric'
+                  })
+                : null;
+
             const statusClass = slugifyTrack(data.status);
+
+            const resolvedRow = resolvedDate
+                ? `<div class="track-field track-field--resolved"><span class="track-label">Resolved On</span><span class="track-resolved-date">${resolvedDate}</span></div>`
+                : '';
 
             trackResult.innerHTML = `
                 <div class="track-card">
@@ -283,6 +299,8 @@ if (trackForm) {
                         <div class="track-field"><span class="track-label">Resident</span><span>${escTrack(data.name)}</span></div>
                         <div class="track-field"><span class="track-label">House No.</span><span>${escTrack(data.houseNo)}</span></div>
                         <div class="track-field"><span class="track-label">Submitted</span><span>${date}</span></div>
+                        <div class="track-field"><span class="track-label">Last Updated</span><span>${updatedDate}</span></div>
+                        ${resolvedRow}
                         <div class="track-field track-field--full"><span class="track-label">Complaint</span><span>${escTrack(data.complaint)}</span></div>
                     </div>
                 </div>`;

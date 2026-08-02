@@ -1129,6 +1129,15 @@ section h2::after {
     grid-column: 1 / -1;
 }
 
+.track-field--resolved {
+    grid-column: 1 / -1;
+}
+
+.track-resolved-date {
+    font-weight: 700;
+    color: #065f46;
+}
+
 .track-label {
     font-size: .75rem;
     font-weight: 700;
