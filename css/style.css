@@ -607,6 +607,24 @@ section h2::after {
     color: #d7d7d7
 }
 
+.admin-footer-link {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid #1f1f1f;
+}
+
+.admin-footer-link a {
+    color: #555555;
+    font-size: 0.78rem;
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    transition: color 0.2s;
+}
+
+.admin-footer-link a:hover {
+    color: var(--teal);
+}
+
 @media (max-width:640px) {
     .site-header {
         position: relative;
