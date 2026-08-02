@@ -132,9 +132,7 @@ document.addEventListener("keydown", event => {
     if (event.key === "Escape" && pdfModal && pdfModal.classList.contains("open")) closePdf();
 });
 
-// ── Complaint Modal ──────────────────────────────────────────
-const COMPLAINT_API = 'https://script.google.com/macros/s/AKfycbxDDgUtVZPlCKL7h-cBHQwRAZsp3jMspTz7Duj76Zgz044gZIMWIeO6iQ3mJwJW5CrGWg/exec';
-
+// ── Complaint Modal — Firestore ──────────────────────────────
 const complaintModal      = document.getElementById('complaintModal');
 const openComplaintBtn    = document.getElementById('openComplaintModal');
 const closeComplaintBtn   = document.getElementById('closeComplaintModal');
@@ -173,6 +171,30 @@ document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && complaintModal && complaintModal.classList.contains('open')) closeComplaintModal();
 });
 
+/**
+ * Generate the next complaint number in the format C1-RWA-YYYY-NNNN.
+ * Uses a Firestore transaction on a dedicated counter document to
+ * guarantee uniqueness even under concurrent submissions.
+ */
+async function generateComplaintNumber() {
+    const year        = new Date().getFullYear();
+    const counterRef  = db.collection('meta').doc('complaintCounter');
+
+    return db.runTransaction(async transaction => {
+        const counterDoc = await transaction.get(counterRef);
+        let seq = 1;
+
+        if (counterDoc.exists) {
+            const data = counterDoc.data();
+            // Reset sequence if the stored year differs from the current year
+            seq = (data.year === year) ? (data.seq + 1) : 1;
+        }
+
+        transaction.set(counterRef, { year, seq });
+        return `C1-RWA-${year}-${String(seq).padStart(4, '0')}`;
+    });
+}
+
 if (complaintForm) {
     complaintForm.addEventListener('submit', async e => {
         e.preventDefault();
@@ -186,28 +208,99 @@ if (complaintForm) {
         }
 
         complaintSubmitBtn.disabled = true;
-        complaintSubmitBtn.textContent = 'Submitting...';
+        complaintSubmitBtn.textContent = 'Submitting…';
 
         try {
-            const response = await fetch(COMPLAINT_API, {
-                method: 'POST',
-                body: JSON.stringify({ name, houseNo, complaint })
-            });
-            const data = await response.json();
+            const complaintNumber = await generateComplaintNumber();
+            const now = firebase.firestore.FieldValue.serverTimestamp();
 
-            if (data.success) {
-                complaintForm.style.display = 'none';
-                complaintNumberDisp.textContent = data.complaintNumber;
-                complaintSuccess.style.display = '';
-            } else {
-                alert('Something went wrong. Please try again or contact us directly.');
-                complaintSubmitBtn.disabled = false;
-                complaintSubmitBtn.textContent = 'Submit Complaint';
-            }
+            await db.collection('complaints').add({
+                complaintNumber,
+                name,
+                houseNo,
+                complaint,
+                status:    'Registered',
+                createdAt: now,
+                updatedAt: now
+            });
+
+            complaintForm.style.display = 'none';
+            complaintNumberDisp.textContent = complaintNumber;
+            complaintSuccess.style.display = '';
         } catch (err) {
-            alert('Network error. Please check your connection and try again.');
+            console.error('Complaint submission error:', err);
+            alert('Something went wrong. Please try again or contact us directly.');
             complaintSubmitBtn.disabled = false;
             complaintSubmitBtn.textContent = 'Submit Complaint';
         }
     });
+}
+
+// ── Track Complaint ───────────────────────────────────────────
+const trackForm       = document.getElementById('trackForm');
+const trackInput      = document.getElementById('trackInput');
+const trackResult     = document.getElementById('trackResult');
+
+if (trackForm) {
+    trackForm.addEventListener('submit', async e => {
+        e.preventDefault();
+        const number = trackInput.value.trim().toUpperCase();
+
+        if (!number) {
+            trackResult.innerHTML = '<p class="track-error">Please enter a complaint number.</p>';
+            return;
+        }
+
+        trackResult.innerHTML = '<p class="track-loading">Searching…</p>';
+
+        try {
+            const snapshot = await db.collection('complaints')
+                .where('complaintNumber', '==', number)
+                .limit(1)
+                .get();
+
+            if (snapshot.empty) {
+                trackResult.innerHTML = `<p class="track-error">No complaint found for <strong>${escTrack(number)}</strong>. Please check the number and try again.</p>`;
+                return;
+            }
+
+            const data  = snapshot.docs[0].data();
+            const date  = data.createdAt
+                ? new Date(data.createdAt.toMillis()).toLocaleDateString('en-IN', {
+                      day: '2-digit', month: 'long', year: 'numeric'
+                  })
+                : '—';
+
+            const statusClass = slugifyTrack(data.status);
+
+            trackResult.innerHTML = `
+                <div class="track-card">
+                    <div class="track-card-header">
+                        <span class="track-number">${escTrack(data.complaintNumber)}</span>
+                        <span class="track-status track-status--${statusClass}">${escTrack(data.status)}</span>
+                    </div>
+                    <div class="track-card-body">
+                        <div class="track-field"><span class="track-label">Resident</span><span>${escTrack(data.name)}</span></div>
+                        <div class="track-field"><span class="track-label">House No.</span><span>${escTrack(data.houseNo)}</span></div>
+                        <div class="track-field"><span class="track-label">Submitted</span><span>${date}</span></div>
+                        <div class="track-field track-field--full"><span class="track-label">Complaint</span><span>${escTrack(data.complaint)}</span></div>
+                    </div>
+                </div>`;
+        } catch (err) {
+            console.error('Track complaint error:', err);
+            trackResult.innerHTML = '<p class="track-error">An error occurred. Please try again.</p>';
+        }
+    });
+}
+
+function escTrack(str) {
+    return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+}
+
+function slugifyTrack(str) {
+    return (str || '').toLowerCase().replace(/\s+/g, '-');
 }
